@@ -6,7 +6,7 @@ namespace tp3
     public class Employee: INotifyPropertyChanged
     {
         private int id;
-        private string name;
+        private string name = "Name";
         private DateTime date;
         private double experience;
         private float hours;
@@ -28,6 +28,7 @@ namespace tp3
             get => name;
             set
             {
+                if (value.Trim().Length == 0) throw new Exception("Имя не может быть пустым");
                 name = value;
                 OnPropertyChanged(nameof(Name));
             }
@@ -74,11 +75,11 @@ namespace tp3
         }
         public Employee Clone() => new Employee()
         {
-            Id = this.Id,
-            Name = this.Name,
-            Date = this.Date,
-            HoursWorked = this.HoursWorked,
-            Experience = this.Experience,
+            Id = Id,
+            Name = Name,
+            Date = Date,
+            HoursWorked = HoursWorked,
+            Experience = Experience,
         };
     }
 }

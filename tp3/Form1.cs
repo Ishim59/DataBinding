@@ -10,14 +10,18 @@ namespace tp3
     public partial class Form1 : Form
     {
 
-        private BindingList<Employee> employees = new();
+        private BindingList<Employee> ?employees = new();
+
         public int rowIndex = 0;
         public Form1()
         {
             InitializeComponent();
             employees.Add(new Employee() { Id = 1, Name = "Name1",  Date = DateTime.Today, Experience = 5, HoursWorked = 20}) ;
-            employees.Add(new Employee() { Id = 2, Name = "Name2", Date = DateTime.Today, Experience = 6.2, HoursWorked = 21.5f });
             dataGridView1.DataSource = employees;
+
+            BindingList<Employee> clnEmploye = null;
+            string json = JsonSerializer.Serialize(clnEmploye);
+            File.WriteAllText("data.json", json);
 
         }
         private void ‰Ó·‡‚ËÚ¸ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -27,8 +31,6 @@ namespace tp3
             newEmployee.Date = DateTime.Today;
             newEmployee.HoursWorked = 10;
             EditForm ef = new(newEmployee);
-            
-            
             if (ef.ShowDialog(this) == DialogResult.OK)
                 employees.Add(newEmployee);
         }
@@ -71,20 +73,25 @@ namespace tp3
                 MessageBoxIcon.Error);
             }
         }
-
+        
         private void ƒÓ·‡‚ËÚ¸»Á‘‡ÈÎ‡ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (FileStream fs = new FileStream("data.json", FileMode.Open))
-            {
-                var data = JsonSerializer.Deserialize<BindingList<Employee>>(fs);
-                if (data != null)
+            
+                using (FileStream fs = new FileStream("data.json", FileMode.Open))
                 {
-                    foreach (var employee in data)
+                    BindingList<Employee?> data = JsonSerializer.Deserialize<BindingList<Employee>>(fs);
+                    if (data != null)
                     {
-                        employees.Add(employee);
+                        foreach (var employee in data)
+                        {
+                            employees.Add(employee);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("‘‡ÈÎ ÔÛÒÚ", "ŒÈ-ÓÈ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
         }
 
         private void ÒÓı‡ÌËÚ¸ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -105,6 +112,20 @@ namespace tp3
             Reference reference = new Reference();
             reference.ShowDialog();
 
+        }
+
+        private void Ó˜ËÒÚËÚ¸‘‡ÈÎToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BindingList<Employee> clnEmploye = null;
+            string json = JsonSerializer.Serialize(clnEmploye);
+            File.WriteAllText("data.json", json);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            employees.Clear();
+            employees.Add(new Employee() { Id = 1, Name = "Name1", Date = DateTime.Today, Experience = 5, HoursWorked = 20 });
+            dataGridView1.DataSource = employees;
         }
     }
 }
