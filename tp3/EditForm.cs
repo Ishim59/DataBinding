@@ -21,9 +21,8 @@ namespace tp3
             InitializeComponent();
             this.employee = employee;
             numericUpDown1.DataBindings.Add(nameof(NumericUpDown.Value), employee, nameof(employee.Id));
-            var bndName = textBox1.DataBindings.Add(nameof(TextBox.Text), employee, nameof(employee.Name));
-            bndName.FormattingEnabled = true;
-            bndName.DataSourceUpdateMode = DataSourceUpdateMode.Never;
+            textBox1.DataBindings.Add(nameof(TextBox.Text), employee, nameof(employee.Name));
+            
 
            // bndName.BindingComplete += BndName_BindingComplete;
 
@@ -40,17 +39,29 @@ namespace tp3
 
         private void btnOK(object sender, EventArgs e)
         {
-            try
+            if (textBox1.Text.Trim().Split(' ').Length >= 2)
             {
                 employee.Name = textBox1.Text;
-                DialogResult = DialogResult.OK;
             }
-            catch(Exception ex)
+            else
             {
                 textBox1.BackColor = Color.Red;
                 textBox1.Focus();
-                MessageBox.Show(ex.Message ?? "Ошибка", "Ой-ой", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Введите только имя и фамилия", "Ой-ой", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            if (DateTime.Today.Year - dateTimePicker1.Value.Year > 14)
+            {
+                employee.Date = dateTimePicker1.Value;
+                
+            }
+            else
+            {
+                dateTimePicker1.BackColor = Color.Red;
+                dateTimePicker1.Focus();
+                MessageBox.Show("Тебе должно быть больше 14 лет", "Ой-ой", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            if (textBox1.Text.Trim().Split(' ').Length == 2 && DateTime.Today.Year - dateTimePicker1.Value.Year > 14)
+                DialogResult = DialogResult.OK;
         }
         public void ChangeButtonText(string text)
         {

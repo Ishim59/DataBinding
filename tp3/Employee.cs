@@ -28,7 +28,6 @@ namespace tp3
             get => name;
             set
             {
-                if (value.Trim().Length == 0) throw new Exception("Имя не может быть пустым");
                 name = value;
                 OnPropertyChanged(nameof(Name));
             }

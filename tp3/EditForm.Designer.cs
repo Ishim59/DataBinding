@@ -110,9 +110,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 85);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 20);
+            this.label2.Size = new System.Drawing.Size(120, 20);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Имя";
+            this.label2.Text = "Имя и Фамилия";
             // 
             // label1
             // 
@@ -137,13 +137,18 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 255);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(102, 20);
+            this.label4.Size = new System.Drawing.Size(139, 20);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Опыт работы";
+            this.label4.Text = "Опыт работы (год)";
             // 
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(161, 3);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(382, 27);
             this.numericUpDown1.TabIndex = 5;
@@ -165,7 +170,6 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.DecimalPlaces = 2;
             this.numericUpDown2.Location = new System.Drawing.Point(161, 258);
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(382, 27);
